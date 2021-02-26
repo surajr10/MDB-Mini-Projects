@@ -128,31 +128,31 @@ class MainVC: UIViewController {
             imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100),
             imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
             imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
-            imageView.bottomAnchor.constraint(equalTo:view.safeAreaLayoutGuide.topAnchor, constant: 400)
+            imageView.bottomAnchor.constraint(equalTo:view.centerYAnchor, constant: 0)
         ])
         
         view.addSubview(buttons[0])
         
         NSLayoutConstraint.activate([
-            buttons[0].topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant:500),
+            buttons[0].topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor, constant:50),
             buttons[0].leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
             buttons[0].trailingAnchor.constraint(equalTo: view.centerXAnchor, constant: -10)
         ])
         view.addSubview(buttons[1])
         NSLayoutConstraint.activate([
-            buttons[1].topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant:600),
+            buttons[1].topAnchor.constraint(equalTo: view.centerYAnchor, constant:150),
             buttons[1].leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
             buttons[1].trailingAnchor.constraint(equalTo: view.centerXAnchor, constant: -10)
         ])
         view.addSubview(buttons[2])
         NSLayoutConstraint.activate([
-            buttons[2].topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant:500),
+            buttons[2].topAnchor.constraint(equalTo: view.centerYAnchor, constant:50),
             buttons[2].leadingAnchor.constraint(equalTo: view.centerXAnchor, constant: 10),
             buttons[2].trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30)
         ])
         view.addSubview(buttons[3])
         NSLayoutConstraint.activate([
-            buttons[3].topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant:600),
+            buttons[3].topAnchor.constraint(equalTo: view.centerYAnchor, constant:150),
             buttons[3].leadingAnchor.constraint(equalTo: view.centerXAnchor, constant: 10),
             buttons[3].trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30)
         ])
@@ -180,7 +180,8 @@ class MainVC: UIViewController {
         view.addSubview(statButton)
         
         NSLayoutConstraint.activate([
-            statButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 670),
+            statButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -50),
+//            statButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 670),
             statButton.leadingAnchor.constraint(equalTo: view.centerXAnchor, constant: 50),
             statButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50)
         ])
