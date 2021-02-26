@@ -63,6 +63,12 @@ class StartVC: UIViewController {
         
         // MARK: >> Your Code Here <<
         
+        button.titleLabel?.font = .systemFont(ofSize: 20, weight: .medium)
+        // button.setTitleShadowColor(.lightGray, for: .normal)
+        button.backgroundColor = .lightGray
+        // button.tintColor = .red
+        // button.setImage(UIImage(systemName: "star"), for: .normal)
+        
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
@@ -127,6 +133,9 @@ class StartVC: UIViewController {
         // A view must be in the hierarchy before constraints are added.
         NSLayoutConstraint.activate([
             // MARK: >> Your Code Here <<
+            startButton.topAnchor.constraint(equalTo: welcomeLabel.topAnchor, constant: 75),
+            startButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 75),
+            startButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -75)
         ])
         
         // MARK: STEP 3: Adding Callbacks
