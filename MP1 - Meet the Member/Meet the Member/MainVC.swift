@@ -353,16 +353,24 @@ class MainVC: UIViewController {
             self.score += 1
             scoreLabel.text = "Score: " + String(self.score)
         } else {
-            UIView.animate(withDuration: 1.0, delay: 0.0, animations: {
-        
-                button.backgroundColor = .red
-                
-            }, completion: nil)
-            UIView.animate(withDuration: 1.0, delay: 0.0, animations: {
+            for button1 in buttons {
+                if button1.accessibilityLabel == "answer" {
+                    UIView.animate(withDuration: 1.0, delay: 0.0, animations: {
+                        
+                        button.backgroundColor = .red
+                        button1.backgroundColor = .green
+                        
+                    }, completion: nil)
+                    UIView.animate(withDuration: 1.0, delay: 0.0, animations: {
+                    
+                        button.backgroundColor = .blue
+                        button1.backgroundColor = .blue
+                    }, completion: nil)
+                }
+            }
             
-                button.backgroundColor = .blue
-                
-            }, completion: nil)
+            
+            
             self.currStreak = 0
             self.lastThree.append("Wrong")
             if self.lastThree.count > 3 {
