@@ -16,7 +16,7 @@ class PokemonProfileVC: UIViewController {
     
     init(pokeTag: Int) {
         currPokemon = pokemons[pokeTag]
-
+//        currPokemon = passedPokemon
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -49,7 +49,7 @@ class PokemonProfileVC: UIViewController {
         
         backButton.addTarget(self, action: #selector(didTapBack(_:)), for: .touchUpInside)
         
-        let pokeImage = UIImageView(frame: CGRect(x:50, y: 70, width: 200, height: 200))
+        let pokeImage = UIImageView(frame: CGRect(x:100, y: 70, width: 200, height: 200))
         let Url: URL = URL(string: currPokemon.imageUrlLarge)!
         DispatchQueue.global(qos: .userInitiated).async {
             let imageData: NSData = NSData(contentsOf: Url)!
@@ -60,7 +60,66 @@ class PokemonProfileVC: UIViewController {
         }
         view.addSubview(pokeImage)
         
-        let typeLabel = UILabel(frame: CGRect(x: 20, y: 270, width: view.frame.width * 0.8, height: 20))
+        let nameLabel = UILabel(frame: CGRect(x: 110, y: 270, width: view.frame.width * 0.8, height: 20))
+        nameLabel.text = "Name: \(String(currPokemon.name))"
+        nameLabel.font.withSize(25)
+        view.addSubview(nameLabel)
+        
+        let idLabel = UILabel(frame: CGRect(x: 110, y: 290, width: view.frame.width * 0.8, height: 20))
+        idLabel.text = "ID: \(String(currPokemon.id))"
+        view.addSubview(idLabel)
+        
+        var typeText: String = ""
+        
+        for type in currPokemon.types {
+                switch type {
+                case .Bug:
+                    typeText += "Bug, "
+                case .Grass:
+                    typeText += "Grass, "
+                case .Dark:
+                    typeText += "Dark, "
+                case .Ground:
+                    typeText += "Ground, "
+                case .Dragon:
+                    typeText += "Dragon, "
+                case .Ice:
+                    typeText += "Ice, "
+                case .Electric:
+                    typeText += "Electric, "
+                case .Normal:
+                    typeText += "Normal, "
+                case .Fairy:
+                    typeText += "Fairy, "
+                case .Poison:
+                    typeText += "Poison, "
+                case .Fighting:
+                    typeText += "Fighting, "
+                case .Psychic:
+                    typeText += "Psychic, "
+                case .Fire:
+                    typeText += "Fire, "
+                case .Rock:
+                    typeText += "Rock, "
+                case .Flying:
+                    typeText += "Flying, "
+                case .Steel:
+                    typeText += "Steel, "
+                case .Ghost:
+                    typeText += "Ghsot, "
+                case .Water:
+                    typeText += "Water, "
+                case .Unknown:
+                    typeText += "Unknown, "
+                }
+        }
+
+        
+        let typeLabel = UILabel(frame: CGRect(x: 110, y: 310, width: view.frame.width * 0.8, height: 20))
+        typeLabel.text = "Types: \(typeText)"
+        view.addSubview(typeLabel)
+        
+        
 //        typeLabel.text = currPokemon.types
         
 //        var text = ""
@@ -71,31 +130,31 @@ class PokemonProfileVC: UIViewController {
         
         
         
-        let attackLabel = UILabel(frame: CGRect(x: 20, y: 290, width: view.frame.width * 0.8, height: 20))
+        let attackLabel = UILabel(frame: CGRect(x: 110, y: 330, width: view.frame.width * 0.8, height: 20))
         attackLabel.text = "Attack: \(String(currPokemon.attack))"
         view.addSubview(attackLabel)
         
-        let defenseLabel = UILabel(frame: CGRect(x: 20, y: 310, width: view.frame.width * 0.8, height: 20))
+        let defenseLabel = UILabel(frame: CGRect(x: 110, y: 350, width: view.frame.width * 0.8, height: 20))
         defenseLabel.text = "Defense: \(String(currPokemon.defense))"
         view.addSubview(defenseLabel)
 
-        let healthLabel = UILabel(frame: CGRect(x: 20, y: 330, width: view.frame.width * 0.8, height: 20))
+        let healthLabel = UILabel(frame: CGRect(x: 110, y: 370, width: view.frame.width * 0.8, height: 20))
         healthLabel.text = "Health: \(String(currPokemon.health))"
         view.addSubview(healthLabel)
 
-        let spAttackLabel = UILabel(frame: CGRect(x: 20, y: 350, width: view.frame.width * 0.8, height: 20))
+        let spAttackLabel = UILabel(frame: CGRect(x: 110, y: 390, width: view.frame.width * 0.8, height: 20))
         spAttackLabel.text = "Special Attack: \(String(currPokemon.specialAttack))"
         view.addSubview(spAttackLabel)
 
-        let spDefenseLabel = UILabel(frame: CGRect(x: 20, y: 370, width: view.frame.width * 0.8, height: 20))
+        let spDefenseLabel = UILabel(frame: CGRect(x: 110, y: 410, width: view.frame.width * 0.8, height: 20))
         spDefenseLabel.text = "Special Defense: \(String(currPokemon.specialDefense))"
         view.addSubview(spDefenseLabel)
         
-        let speedLabel = UILabel(frame: CGRect(x: 20, y: 390, width: view.frame.width * 0.8, height: 20))
+        let speedLabel = UILabel(frame: CGRect(x: 110, y: 430, width: view.frame.width * 0.8, height: 20))
         speedLabel.text = "Speed: \(String(currPokemon.speed))"
         view.addSubview(speedLabel)
         
-        let totalLabel = UILabel(frame: CGRect(x: 20, y: 410, width: view.frame.width * 0.8, height: 20))
+        let totalLabel = UILabel(frame: CGRect(x: 110, y: 450, width: view.frame.width * 0.8, height: 20))
         totalLabel.text = "Total: \(String(currPokemon.total))"
         view.addSubview(totalLabel)
         
@@ -105,7 +164,6 @@ class PokemonProfileVC: UIViewController {
     }
     
     @objc func didTapBack(_ sender: UIButton) {
-        
         dismiss(animated: true, completion: nil)
         
     }
