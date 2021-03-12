@@ -32,5 +32,23 @@ class FIRDatabaseRequest {
         } catch { }
     }
     
+    func getEvents(vc: FeedVC)->[Event] {
+        var events: [Event] = []
+        let listener = db.collection("events").order(by: "startTimeStamp", descending: true).addSnapshotListener{ querySnapshot, error in
+            guard let documents = querySnapshot?.documents else {
+                print("Error fetching documents: \(String(describing: error))")
+                return
+            }
+            for document in documents {
+                guard let event = try? document.data(as: Event.self) else {
+                    print("Document couldn't be converted to event")
+                    return
+                }
+                events.append(event)
+            }
+            vc.updateEvents(newEvents: events)
+        }
+        return events
+    }
     /* TODO: Events getter */
 }
