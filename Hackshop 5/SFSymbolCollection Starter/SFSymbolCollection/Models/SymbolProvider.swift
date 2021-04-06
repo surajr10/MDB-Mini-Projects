@@ -10,18 +10,21 @@ import UIKit
 import SwiftyJSON
 
 class SymbolProvider {
-    
-    static let symbols: [SFSymbol] = {
-        guard let path = Bundle.main.path(forResource: "sf-symbols", ofType: "json") else { return [] }
+    static let symbols: [SymbolCategories: [SFSymbol]]? = {
+        guard let url = Bundle.main.url(forResource: "sf-symbols", withExtension: "json") else { return nil }
         do {
-            let data = try NSData(contentsOfFile: path) as Data
+            let data = try Data(contentsOf: url)
             let json = try JSON(data: data)
-            let names = json[0]["items"].array!
-            return names.map { (name: JSON) -> SFSymbol in
-                SFSymbol(name: name.string!, image: UIImage(systemName: name.string!)!)
+            var symbols: [SymbolCategories: [SFSymbol]] = [:]
+            for (index, catagory):(String, JSON) in json {
+                if let title = SymbolCategories(rawValue: catagory["title"].stringValue) {
+                    symbols[title] = catagory["items"].arrayValue.compactMap {
+                        SFSymbol(name: $0.stringValue)
+                    }
+                }
             }
-        } catch {
-            return []
-        }
+            return symbols
+        } catch {}
+        return nil
     }()
 }
