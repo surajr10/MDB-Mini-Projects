@@ -30,6 +30,7 @@ class FeedVC: UIViewController {
         let btn = UIButton()
         btn.setTitle("Add Event", for: .normal)
         btn.setTitleColor(.black, for: .normal)
+        btn.setImage(UIImage(systemName: "plus"), for: .normal)
         
         return btn
     }()
@@ -68,7 +69,7 @@ class FeedVC: UIViewController {
         signOutButton.addTarget(self, action: #selector(didTapSignOut(_:)), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
-            signOutButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            signOutButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -20),
             signOutButton.topAnchor.constraint(equalTo: view.bottomAnchor, constant: -70),
             signOutButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -30)
         ])
@@ -79,6 +80,16 @@ class FeedVC: UIViewController {
         collectionView.backgroundColor = .clear
         collectionView.dataSource = self
         collectionView.delegate = self
+        
+        view.addSubview(newEventButton)
+        
+        newEventButton.addTarget(self, action: #selector(didTapNewEvent(_:)), for: .touchUpInside)
+        
+        NSLayoutConstraint.activate([
+            newEventButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 20),
+            newEventButton.topAnchor.constraint(equalTo: view.bottomAnchor, constant: -70),
+            newEventButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -30)
+        ])
     }
     
     @objc func didTapSignOut(_ sender: UIButton) {
@@ -91,6 +102,11 @@ class FeedVC: UIViewController {
             let duration: TimeInterval = 0.3
             UIView.transition(with: window, duration: duration, options: options, animations: {}, completion: nil)
         }
+    }
+    
+    @objc func didTapNewEvent(_ sender: UIButton) {
+        let vc = NewEventVC()
+        present(vc, animated: true, completion: nil)
     }
 }
 

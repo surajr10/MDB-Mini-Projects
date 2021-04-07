@@ -68,7 +68,7 @@ class FIRAuthProvider {
                 }
                 return
             }
-            Event(id: <#T##EventID?#>, name: <#T##String#>, description: <#T##String#>, photoURL: <#T##String#>, startTimeStamp: <#T##Timestamp#>, creator: <#T##UserID#>, rsvpUsers: <#T##[UserID]#>)
+//            Event(id: <#T##EventID?#>, name: <#T##String#>, description: <#T##String#>, photoURL: <#T##String#>, startTimeStamp: <#T##Timestamp#>, creator: <#T##UserID#>, rsvpUsers: <#T##[UserID]#>)
             guard let authResult = authResult else {
                 completion?(.failure(.internalError))
                 return
