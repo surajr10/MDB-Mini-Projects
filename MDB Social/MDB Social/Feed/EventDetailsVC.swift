@@ -49,6 +49,10 @@ class EventDetailsVC: UIViewController {
                                 self.creatorLabel.text = user.fullname
                             }
                         })
+            
+            let formatter = DateFormatter()
+            formatter.dateFormat = "HH:mm E, d MMM y"
+            dateLabel.text = "Date: " + formatter.string(from: currEvent!.startDate)
             creatorLabel.text = currEvent!.creator
             rsvpLabel.text = String(currEvent!.rsvpUsers.count)
             descLabel.text = currEvent!.description
