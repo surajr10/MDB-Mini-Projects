@@ -32,6 +32,7 @@ class FeedVC: UIViewController {
         btn.setTitleColor(.black, for: .normal)
         btn.setImage(UIImage(systemName: "plus"), for: .normal)
         
+        btn.translatesAutoresizingMaskIntoConstraints = false
         return btn
     }()
     
@@ -69,7 +70,7 @@ class FeedVC: UIViewController {
         signOutButton.addTarget(self, action: #selector(didTapSignOut(_:)), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
-            signOutButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -20),
+            signOutButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -50),
             signOutButton.topAnchor.constraint(equalTo: view.bottomAnchor, constant: -70),
             signOutButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -30)
         ])
@@ -86,7 +87,7 @@ class FeedVC: UIViewController {
         newEventButton.addTarget(self, action: #selector(didTapNewEvent(_:)), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
-            newEventButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 20),
+            newEventButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 50),
             newEventButton.topAnchor.constraint(equalTo: view.bottomAnchor, constant: -70),
             newEventButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -30)
         ])
@@ -126,6 +127,13 @@ extension FeedVC: UICollectionViewDataSource, UICollectionViewDelegate, UICollec
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
             return CGSize(width: view.frame.width * (1/3), height: 150)
         }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let event = events?[indexPath.item]
+        let vc = EventDetailsVC()
+        vc.currEvent = event
+        present(vc, animated: true, completion: nil)
+    }
 }
 
 class EventCell: UICollectionViewCell {

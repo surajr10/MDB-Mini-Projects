@@ -163,4 +163,6 @@ class FIRAuthProvider {
         userListener?.remove()
         currentUser = nil
     }
+    
+
 }
