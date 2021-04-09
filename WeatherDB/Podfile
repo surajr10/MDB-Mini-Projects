@@ -6,5 +6,5 @@ target 'WeatherDB' do
   use_frameworks!
 
   # Pods for WeatherDB
-
+  pod 'GooglePlaces'
 end
