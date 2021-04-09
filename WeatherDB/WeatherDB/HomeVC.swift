@@ -26,7 +26,7 @@ class HomeVC: UIViewController {
                     configureVCs()
                 } else {
                     print("calling changeCurrLocVC from didSet of ucrrplace ID")
-//                    changeCurrLocVC()
+                    changeCurrLocVC()
                 }
             }
         }
@@ -119,6 +119,8 @@ class HomeVC: UIViewController {
                     pageControl.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
                 ])
         
+        GMSPlaces.shared.setCurrentLocationID(vc: self)
+        
 //        view.addSubview(collectionView)
 //        collectionView.frame = view.bounds.inset(by: UIEdgeInsets(top: 50, left: 10, bottom: 100, right: 10))
 //        collectionView.backgroundColor = .clear
@@ -128,7 +130,7 @@ class HomeVC: UIViewController {
     
     @objc func didTapAddLoc(_ sender: UIButton) {
         let vc = AddLocationVC()
-//        vc.homeVC = self
+        vc.mainVC = self
         present(vc, animated: true, completion: nil)
         
     }
@@ -200,6 +202,32 @@ class HomeVC: UIViewController {
     
     func currLocFailed() {
             configureVCs()
+        }
+    
+    func changeCurrLocVC() {
+            DispatchQueue.main.async { [weak self] in
+                let newVC = WeatherVC()
+                newVC.weather = self!.weathers[0]
+                newVC.loc = self!.locations[0]
+                newVC.homeVC = self!
+                if (HomeVC.currLocFailed && self!.controllers[0].isCurrent == false) {
+                    self!.controllers.append(newVC)
+                    self!.controllers.swapAt(0, self!.controllers.count - 1)
+                    self!.pageControl.numberOfPages += 1
+                } else {
+                    self!.controllers[0] = newVC
+                }
+                newVC.isCurrent = true
+                //DEBUGGING STUFF
+    //            var cities: [String] = []
+    //            for c in self!.controllers {
+    //                cities.append(c.cityName.text!)
+    //            }
+    //            print("controllers now: \(cities)")
+                
+                self!.pageController.setViewControllers([self!.controllers[0]], direction: .forward, animated: false)
+                self!.pageControl.reloadInputViews()
+            }
         }
         
         func deleteLoc(location: CLLocation) {

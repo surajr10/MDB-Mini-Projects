@@ -145,8 +145,21 @@ class WeatherVC: UIViewController {
         return btn
     }()
     
+//    var lightButton: UIButton = {
+//        let btn = UIButton()
+//        btn.setTitle("Dark", for: .normal)
+//
+//        return btn
+//    }()
+    
+//    var isDark: Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+//        if (isDark) {
+//            overrideUserInterfaceStyle = .dark
+//        }
         
         let isDark = self.traitCollection.userInterfaceStyle == UIUserInterfaceStyle.dark
         
@@ -170,25 +183,29 @@ class WeatherVC: UIViewController {
         infoStack.addArrangedSubview(humidityLabel)
         view.addSubview(infoStack)
         
+//        view.addSubview(lightButton)
+//        lightButton.addTarget(self, action: #selector(didTapLight(_:)), for: .touchUpInside)
         NSLayoutConstraint.activate([
             cityName.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50),
             cityName.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             icon.topAnchor.constraint(equalTo: cityName.bottomAnchor, constant: 10),
             icon.trailingAnchor.constraint(equalTo: view.centerXAnchor),
-            currCondition.topAnchor.constraint(equalTo: icon.topAnchor, constant: 35),
+            currCondition.topAnchor.constraint(equalTo: currTemp.bottomAnchor, constant: 35),
             currCondition.leadingAnchor.constraint(equalTo: view.centerXAnchor),
             currTemp.topAnchor.constraint(equalTo: icon.bottomAnchor, constant: 20),
             currTemp.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            infoStack.topAnchor.constraint(equalTo: currTemp.bottomAnchor, constant: 35),
+            infoStack.topAnchor.constraint(equalTo: currCondition.bottomAnchor, constant: 35),
             infoStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 35),
-            infoStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -35)
+            infoStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -35),
+//            lightButton.topAnchor.constraint(equalTo: infoStack.bottomAnchor, constant: 20),
+//            lightButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
         
         let orangeColor = UIColor(red: 255/255, green: 183/255, blue: 3/255, alpha: 1)
         let darkColor = UIColor(red: 52/255, green: 58/255, blue: 64/255, alpha: 1)
         let cond = weather!.condition.first!.name
         var iconID = weather!.condition.first!.icon
-        if (!isDark) { //light mode: day icon, bg color and text depend on condition
+        if (isDark) { //light mode: day icon, bg color and text depend on condition
             if (iconID.contains("n")) {
                 let i = iconID.firstIndex(of: "n")
                 iconID = iconID[..<i!] + "d"
@@ -199,50 +216,60 @@ class WeatherVC: UIViewController {
                     self.icon.image = image
                 }
             }
-//            if (cond == "Thunderstorm") {
-//                view.backgroundColor = UIColor(red: 25/255, green: 25/255, blue: 25/255, alpha: 1)
-//            } else if (cond == "Drizzle") {
-//                view.backgroundColor = UIColor(red: 119/255, green: 141/255, blue: 169/255, alpha: 1)
-//            } else if (cond == "Rain") {
-//                view.backgroundColor = UIColor(red: 65/255, green: 90/255, blue: 119/255, alpha: 1)
-//                feelsLike.setTextColor(titleColor: darkColor)
-//                pressure.setTextColor(titleColor: darkColor)
-//                humidity.setTextColor(titleColor: darkColor)
-//            } else if (cond == "Snow") {
-//                view.backgroundColor = UIColor(red: 248/255, green: 249/255, blue: 250/255, alpha: 1)
-//                let blueColor = UIColor(red: 193/255, green: 211/255, blue: 254/255, alpha: 1)
-//                cityName.textColor = blueColor
-//                currTemp.textColor = blueColor
-//                currCondition.textColor = blueColor
-//                feelsLike.setTextColor(infoColor: blueColor)
-//                pressure.setTextColor(infoColor: blueColor)
-//                humidity.setTextColor(infoColor: blueColor)
-//            } else if (cond == "Atmosphere") {
-//                view.backgroundColor = UIColor(red: 206/255, green: 212/255, blue: 218/255, alpha: 1)
-//                cityName.textColor = darkColor
-//                currTemp.textColor = darkColor
-//                currCondition.textColor = darkColor
+            if (cond == "Thunderstorm") {
+                view.backgroundColor = UIColor(red: 25/255, green: 25/255, blue: 25/255, alpha: 1)
+            } else if (cond == "Drizzle") {
+                view.backgroundColor = UIColor(red: 119/255, green: 141/255, blue: 169/255, alpha: 1)
+            } else if (cond == "Rain") {
+                view.backgroundColor = UIColor(red: 65/255, green: 90/255, blue: 119/255, alpha: 1)
+                feelsLikeLabel.textColor = darkColor
+                pressureLabel.textColor = darkColor
+                humidityLabel.textColor = darkColor
+//                feelsLikeLabel.setTextColor(titleColor: darkColor)
+//                pressureLabel.setTextColor(titleColor: darkColor)
+//                humidityLabel.setTextColor(titleColor: darkColor)
+            } else if (cond == "Snow") {
+                view.backgroundColor = UIColor(red: 248/255, green: 249/255, blue: 250/255, alpha: 1)
+                let blueColor = UIColor(red: 193/255, green: 211/255, blue: 254/255, alpha: 1)
+                cityName.textColor = blueColor
+                currTemp.textColor = blueColor
+                currCondition.textColor = blueColor
+                feelsLikeLabel.textColor = blueColor
+                pressureLabel.textColor = blueColor
+                humidityLabel.textColor = blueColor
+            } else if (cond == "Atmosphere") {
+                view.backgroundColor = UIColor(red: 206/255, green: 212/255, blue: 218/255, alpha: 1)
+                cityName.textColor = darkColor
+                currTemp.textColor = darkColor
+                currCondition.textColor = darkColor
+                feelsLikeLabel.textColor = UIColor(red: 33/255, green: 37/255, blue: 41/255, alpha: 1)
+                pressureLabel.textColor = UIColor(red: 33/255, green: 37/255, blue: 41/255, alpha: 1)
+                humidityLabel.textColor = UIColor(red: 33/255, green: 37/255, blue: 41/255, alpha: 1)
+//                feelsLikeLabel.text.setTextColor(titleColor: UIColor(red: 33/255, green: 37/255, blue: 41/255, alpha: 1), infoColor: darkColor)
+//                pressureLabel.setTextColor(titleColor: UIColor(red: 33/255, green: 37/255, blue: 41/255, alpha: 1), infoColor: darkColor)
+//                humidityLabel.setTextColor(titleColor: UIColor(red: 33/255, green: 37/255, blue: 41/255, alpha: 1), infoColor: darkColor)
+            } else if (cond == "Clear") {
+                view.backgroundColor = UIColor(red: 33/255, green: 158/255, blue: 188/255, alpha: 1)
+                currCondition.textColor = orangeColor
+                feelsLikeLabel.textColor = darkColor
+                pressureLabel.textColor = darkColor
+                humidityLabel.textColor = darkColor
+                
+            } else if (cond == "Clouds") {
+                view.backgroundColor = UIColor(red: 167/255, green: 194/255, blue: 211/255, alpha: 1)
+                cityName.textColor = darkColor
+                currTemp.textColor = darkColor
+                currCondition.textColor = darkColor
+                feelsLikeLabel.textColor = UIColor(red: 33/255, green: 37/255, blue: 41/255, alpha: 1)
+                pressureLabel.textColor = UIColor(red: 33/255, green: 37/255, blue: 41/255, alpha: 1)
+                humidityLabel.textColor = UIColor(red: 33/255, green: 37/255, blue: 41/255, alpha: 1)
 //                feelsLike.setTextColor(titleColor: UIColor(red: 33/255, green: 37/255, blue: 41/255, alpha: 1), infoColor: darkColor)
 //                pressure.setTextColor(titleColor: UIColor(red: 33/255, green: 37/255, blue: 41/255, alpha: 1), infoColor: darkColor)
 //                humidity.setTextColor(titleColor: UIColor(red: 33/255, green: 37/255, blue: 41/255, alpha: 1), infoColor: darkColor)
-//            } else if (cond == "Clear") {
-//                view.backgroundColor = UIColor(red: 33/255, green: 158/255, blue: 188/255, alpha: 1)
-//                currCondition.textColor = orangeColor
-//                feelsLike.setTextColor(titleColor: darkColor, infoColor: orangeColor)
-//                pressure.setTextColor(titleColor: darkColor, infoColor: orangeColor)
-//                humidity.setTextColor(titleColor: darkColor, infoColor: orangeColor)
-//            } else if (cond == "Clouds") {
-//                view.backgroundColor = UIColor(red: 167/255, green: 194/255, blue: 211/255, alpha: 1)
-//                cityName.textColor = darkColor
-//                currTemp.textColor = darkColor
-//                currCondition.textColor = darkColor
-//                feelsLike.setTextColor(titleColor: UIColor(red: 33/255, green: 37/255, blue: 41/255, alpha: 1), infoColor: darkColor)
-//                pressure.setTextColor(titleColor: UIColor(red: 33/255, green: 37/255, blue: 41/255, alpha: 1), infoColor: darkColor)
-//                humidity.setTextColor(titleColor: UIColor(red: 33/255, green: 37/255, blue: 41/255, alpha: 1), infoColor: darkColor)
-//            } else {
-//                view.backgroundColor = .black
-//            }
-            view.backgroundColor = .black
+            } else {
+                view.backgroundColor = .black
+            }
+//            view.backgroundColor = .black
         } else { //dark mode: icon to night version, bg color + text, and pc tint colors
             
             if (iconID.contains("d")) {
@@ -276,5 +303,11 @@ class WeatherVC: UIViewController {
         guard let homeVC = homeVC else { return }
         homeVC.deleteLoc(location: loc!)
     }
+    
+//    @objc func didTapLight(_ sender: UIButton) {
+//        lightButton.setTitle("Light", for: .normal)
+//        isDark = true
+//
+//    }
 
 }

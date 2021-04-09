@@ -90,7 +90,7 @@ class WeatherRequest {
         let dataTask = URLSession.shared.dataTask(with: url) { data, response, error in
             guard let response = response as? HTTPURLResponse,
                   response.statusCode == 200, let data = data, error == nil else {
-                // TODO: Error Handling
+                print("error in getting weather")
                 return
             }
             let decoder = JSONDecoder()
